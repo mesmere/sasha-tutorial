@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script type="application/javascript">
+        async function buttonClick() {
+          const response = await fetch('http://127.0.0.1:8088');
+          const responseText = await response.text();
+          document.getElementById('responseBox').value = responseText;
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+          document.getElementById('sendButton').addEventListener('click', buttonClick);
+        });
+    </script>
+  </head>
+  <body>
+    <button id="sendButton" type="button">Click to send request</button>
+    <textarea id="responseBox" readonly>Response will appear here...</textarea>
+  </body>
+</html>
