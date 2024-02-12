@@ -103,16 +103,39 @@ class LinkedList {
 
     cur.next = cur.next.next;
   }
+
+  reverse() {
+    if (this.head === undefined) {
+      return; // Nothing to do.
+    }
+
+    let prev = this.head;
+    let cur = this.head.next;
+    while (cur !== undefined) {
+      const next = cur.next;
+      cur.next = prev;
+      prev = cur;
+      cur = next;
+    }
+    this.head.next = undefined;
+    this.head = prev;
+ }
+
+  *[Symbol.iterator]() {
+    let cur = this.head;
+    while (cur !== undefined) {
+      yield cur.data;
+      cur = cur.next;
+    }
+  }
 }
 
 const list = new LinkedList(["zero", "one"]);
 list.insert(2, "two");
 list.insert(3, "three");
-list.removeAtHead();
 list.remove(2);
 console.log(`Head is ${list.get(0)}.`);
-try {
-  list.get(2);
-} catch (e) {
-  console.log(`Tried to get(2), caught: ${e}`);
+list.reverse();
+for (let cur of list) {
+  console.log(cur);
 }
